@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import firebase from 'firebase'
 import Header from './components/Header';
 import ManageEvent from './page/ManageEvent';
 import Home from './page/Home'
@@ -10,6 +11,21 @@ import {
 } from 'react-router-dom';
 
 class App extends Component {
+
+  constructor(props){
+    super(props);
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyCtpIWfOOMGSziO8Kk-dYrQnjTUPWExvjI",
+      authDomain: "billet-allmoll.firebaseapp.com",
+      databaseURL: "https://billet-allmoll.firebaseio.com",
+      projectId: "billet-allmoll",
+      storageBucket: "billet-allmoll.appspot.com",
+      messagingSenderId: "114897118270"
+    };
+    firebase.initializeApp(config);
+  }
+
   render() {
     return (
       <div>

@@ -6,7 +6,12 @@ export default class AddEvent extends Component {
 	  	eventName:'',
 	    eventDesc:'',
 	    eventImg:'',
-	    eventCount:''
+	    eventCount:'',
+	    eventHours:'',
+	    eventLocation:'',
+	    eventDate:'',
+
+
     }
     onChange= e =>{
 	  	this.setState({
@@ -20,14 +25,20 @@ export default class AddEvent extends Component {
 		  dbCon.push({
 		    name: this.state.eventName,
 		    desc : this.state.eventDesc,
-		    Img : this.state.eventImg,
-		    Nbr : this.state.eventCount
+		    img : this.state.eventImg,
+		    nbr : this.state.eventCount,
+		    hours : this.state.eventHours,
+		    location : this.state.eventLocation,
+		    date : this.state.eventDate
 		  });
 		  this.setState({
 		    eventName:'',
-		    eventDesc:'', 
+		    eventDesc:'',
 		    eventImg:'',
-		    eventCount:''
+		    eventCount:'',
+		    eventHours:'',
+		    eventLocation:'',
+		    eventDate:'',
 		  });
 		}
 	}
@@ -49,9 +60,27 @@ export default class AddEvent extends Component {
 				</div>
 
 				<div className="field">
-				  <label className="label">url de l'êvenement</label>
+				  <label className="label">Url de l'Image</label>
 				  <div className="control">
 				    <input className="input" type="text" name="eventImg" onChange={this.onChange} />
+				  </div>
+				</div>
+				<div className="field">
+				  <label className="label">Heure</label>
+				  <div className="control">
+				    <input className="input" type="hours" name="eventHours" onChange={this.onChange} />
+				  </div>
+				</div>
+				<div className="field">
+				  <label className="label">Date</label>
+				  <div className="control">
+				    <input className="input" type="date" name="eventDate" onChange={this.onChange} />
+				  </div>
+				</div>
+				<div className="field">
+				  <label className="label">Localisation</label>
+				  <div className="control">
+				    <input className="input" type="text" name="eventLocation" onChange={this.onChange} />
 				  </div>
 				</div>
 				<div className="field">
@@ -60,7 +89,17 @@ export default class AddEvent extends Component {
 				    <input className="input" type="text" name="eventCount" onChange={this.onChange} />
 				  </div>
 				</div>
-				<a className="button is-danger" onClick={this.sendEvent} > Ajouter un êvenement</a>
+				<div style={{display: 'flex', justifyContent:'space-around' }} >
+					<button onClick={this.sendEvent} 
+	            	className="button">
+	    				Valider
+	    			</button>
+	    			<button onClick={this.props.closeModal} 
+	            	className="button is-danger">
+	    				Fermer
+	    			</button>
+				</div>
+				
 	      	</form>
 		);
 	}
