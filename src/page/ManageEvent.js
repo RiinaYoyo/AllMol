@@ -26,7 +26,7 @@ export default class ManageEvent extends Component {
 		          </div>		          
 		        </div>
 		        <div style={{display: 'flex', justifyContent: 'center'}}>
-		        	<button onClick={this.showModal} className="button">
+		        	<button onClick={this.showModal} className="button is-info">
 		        		Ajouter un Êvenement
 		        	</button>		        	
 		        </div>

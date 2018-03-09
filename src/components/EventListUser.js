@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Event from './Event'
 import _ from 'lodash';
+import BuyTicket from './BuyTicket'
 
 export default class EventListUser extends Component {
 	componentDidMount(){
@@ -11,6 +12,7 @@ export default class EventListUser extends Component {
   	}
 	state={
 		events:[],
+		modalDisplay:'none'
 	}
 	 getData(values ){
 	    let eventsVal = values;
@@ -26,38 +28,55 @@ export default class EventListUser extends Component {
         	events: events
       	});
   	}
+  	showModal =()=>{
+		this.state.modalDisplay === 'none'?
+  		this.setState({
+				modalDisplay:'block'
+			}):
+			this.setState({
+				modalDisplay:'none'
+			})
+  	}
 	render() {
-		console.log(this.state)
 		let messageNodes = this.state.events.map((event) => {
 			return (
-				<div class="card">
-				  <div class="card-image">
-				    <figure class="image is-4by3">
-				      <img src={event.img} alt="Placeholder image"/>
-				    </figure>
+				<div className="card" style={{margin:'30px'}} >
+				  <div className="card-image">
+				  	<div class="media-content">
+				        <p class="title">{event.name}</p>
+				        <p class="subtitle">{event.desc}</p>
+				        <p> {event.nbr} billets restant </p>
+      				</div>
+			    	<figure className="image">
+			      		<img src={event.img} alt="Placeholder image"/>
+			    	</figure>
+				  	</div>
+				  	<div className="card-content">
+				  	<div class="media-content">
+				        <p> <strong>Date :</strong> {event.date}</p>
+				        <p> <strong>Hours :</strong> {event.hours}</p>
+				        <p> <strong>Location : </strong>{event.location}</p>
+  					</div>
+				    			   
 				  </div>
-				  <div class="card-content">
-				    <div class="media">
-				      <div class="media-left">
-				        <figure class="image is-48x48">
-				          <img src={event.img} alt="Placeholder image"/>
-				        </figure>
-				      </div>
-				      <div class="media-content">
-				        <p class="title is-4">{event.name}</p>
-				        <p class="subtitle is-6">{event.Nbr} places disponibles</p>
-				      </div>
-				    </div>
-
-				    <div class="content">
-				      {event.desc}
-				      <br/>
-				    </div>				   
-				  </div>
-				   <footer className="card-footer">
-				    <a href="#" className="card-footer-item">Reserver</a>
+				   	<footer className="card-footer">				   
+				    <a href="#" className="card-footer-item">
+				    	<div onClick={this.showModal}>Reserver</div>
+				    </a>				    
 				    <a href="#" className="card-footer-item">Plus d'infos</a>
-				  </footer>
+				  	</footer>
+				  	<div className="modal" 
+		        	style={{display:this.state.modalDisplay , backgroundColor:'black'}} >	
+		        		<div className="columns" style={{overflow:'scrollbar',height: '100%',display: 'flex', alignItems:'center'}} >
+				          	<div className="column is-3"></div>
+				          	<div className="column is-6"  
+				          	style={{backgroundColor:'white'}}>
+				            	<BuyTicket closeModal={this.showModal}
+				            	currentEvent={event.key}
+				            	ticketLeft={event.nbr} />	
+				          	</div>
+			        	</div>
+		        	</div>
 				</div>
 		      )
 		    });

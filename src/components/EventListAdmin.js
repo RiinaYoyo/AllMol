@@ -38,7 +38,6 @@ export default class EventListAdmin extends Component {
 			      <td> {event.date}</td>
 			      <td> {event.nbr} </td>
 			      <td>{event.location}</td>
-			      <td>{event.date}</td>
 			      <td>{event.hours}</td>
 			      <td>
 			      	<button onClick={()=> this.deleteData(event.key)} > 
