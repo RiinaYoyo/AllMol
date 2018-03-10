@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import trim from 'trim';
 
 export default class AddEvent extends Component {
+	//state will get all data of the form
 	state = {
 	  	eventName:'',
 	    eventDesc:'',
@@ -10,16 +11,16 @@ export default class AddEvent extends Component {
 	    eventHours:'',
 	    eventLocation:'',
 	    eventDate:'',
-
-
-    }
+		}
+		//set state on change's forms values
     onChange= e =>{
 	  	this.setState({
 	        [e.target.name]:e.target.value
 	  	});
-  	}
+		}
+		
+		//on submit chek all the values of the form push data from state to firebase
   	sendEvent= e =>{
-  		let closeModal = this.props.closeModal
 		if(this.state.eventName !== '' && this.state.eventDesc !== '' && this.state.eventImg !== '' && this.state.eventCount !== ''  && this.state.eventHours !== ''  && this.state.eventLocation !== '' && this.state.eventDate !== ''   ){
 		  e.preventDefault();
 		  let dbCon = this.props.db.database().ref('/events');
@@ -40,11 +41,11 @@ export default class AddEvent extends Component {
 		    eventHours:'',
 		    eventLocation:'',
 		    eventDate:'',
-		  });
-		  ()=>{
-		  	closeModal
-		  }
+			});
+			//reload page
+			window.location.reload()
 		}
+		//if form isn't complete
 		else{
 			alert('Vous devez remplir tous les champs pour valider votre requête ')
 		}

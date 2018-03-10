@@ -1,17 +1,25 @@
 import React, { Component } from 'react';
 
 export default class BuyTicket extends Component {
+
+	//state will receive form data
+
 	state={
 		userName:'',
 		userMail:'',
 		userFirstName:'',
 		userTcks:'',
 		}
+
+
+		//set form change in the state
 	onChange= e =>{
 	  	this.setState({
 	        [e.target.name]:e.target.value
 	  	});
-  	}
+		}
+		
+		//push user info and change nbrs of tickets
   	reserveTickets= e =>{
 			let ticketLeft = this.props.chooseEvent.nbr - this.state.userTcks;
 				if( ticketLeft>0  && this.state.userName !== '' && this.state.userMail !== '' && this.state.userFirstName !== '' && this.state.userTcks !== '' ){
@@ -33,16 +41,18 @@ export default class BuyTicket extends Component {
 						userFirstName:'',
 						userTcks:''
 					});
+					//reload page
 					window.location.reload()
 				}
+				//when tikets down or form not complete
 				else{
 					alert("Nous n'avons pas assez de Billets en stock ou vous n'avez pas renseigné toutes les informations requise")
 				}
 	}
 	
 	render() { 
-		console.log(this.props.chooseEvent)
 		return (
+			//form
 			<form>
 				<div class="field">
 				  <label class="label">Name</label>

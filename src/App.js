@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import './App.css';
-import firebase from 'firebase'
-import Header from './components/Header';
-import ManageEvent from './page/ManageEvent';
-import Home from './page/Home'
+import './App.css';//import Css Rules
+import firebase from 'firebase' //Firebase Package
+import Header from './components/Header'; //Header and Navbar
+import ManageEvent from './page/ManageEvent'; // Page admin
+import Home from './page/Home' //Page User
 import {
   HashRouter,
   Route,
-  Redirect,
-} from 'react-router-dom';
+  Redirect, 
+} from 'react-router-dom'; //Router
 
 class App extends Component {
-
+  //Configuration of the firebase DataBase
   constructor(props){
     super(props);
     // Initialize Firebase
@@ -28,7 +28,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div>{/* Configure the router  */}
         <HashRouter> 
             <div className="app">
                 <Header/>

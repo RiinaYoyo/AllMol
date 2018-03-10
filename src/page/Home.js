@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
-import EventListUser from '../components/EventListUser'
-import BuyTicket from '../components/BuyTicket'
+import EventListUser from '../components/EventListUser' //Event List for the User
 
 export default class Home extends Component {
-	render() {
+	render() {//Page render the EventList for User
 		return (
 			<div className="container">
 				<div className="columns">
