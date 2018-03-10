@@ -1,6 +1,7 @@
 {
   "name": "allmol-final",
   "version": "0.1.0",
+  "build": "babel src -d lib",
   "private": true,
   "homepage": "https://riinayoyo.github.io/AllMol/",
   "dependencies": {
@@ -10,16 +11,14 @@
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.1",
-    "trim": "^0.0.1"
+    "trim": "^0.0.1",
+    "gh-pages": "^1.1.0"
   },
   "scripts": {
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "predeploy": "yarn run build",
-    "deploy": "gh-pages -d build"
-  },
-  "devDependencies": {
-    "gh-pages": "^1.1.0"
+    "eject": "react-scripts eject"
   }
 }
