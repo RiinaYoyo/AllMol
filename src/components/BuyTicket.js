@@ -6,45 +6,42 @@ export default class BuyTicket extends Component {
 		userMail:'',
 		userFirstName:'',
 		userTcks:'',
-		tcktLeft:this.props.ticketLeft
-	}
+		}
 	onChange= e =>{
 	  	this.setState({
 	        [e.target.name]:e.target.value
 	  	});
   	}
   	reserveTickets= e =>{
-  		console.log(this.state)
-		if(this.state.userTcks<this.state.ticketLeft && this.state.userName !== '' && this.state.userMail !== '' && this.state.userFirstName !== '' && this.state.userTcks !== '' ){
-
-
-
-			e.preventDefault();
-			let currentId = this.props.currentEvent;
-			let newTcks = this.props.ticketLeft - this.state.userTcks;
-			console.log(currentId);	
-			let dbCon = this.props.db.database();
-			dbCon.ref('/events').child(currentId).update({
-				nbr : newTcks 
-			})
-			dbCon.ref('/reserved').push({
-				name: this.state.userName,
-				mail : this.state.userMail,
-				firtName : this.state.userFirstName,
-				nbr : this.state.userTcks,
-				eventId: currentId
-			});
-			this.setState({
-				userName:'',
-				userMail:'',
-				userFirstName:'',
-				userTcks:''
-			});
-		}
+			let ticketLeft = this.props.chooseEvent.nbr - this.state.userTcks;
+				if( ticketLeft>0  && this.state.userName !== '' && this.state.userMail !== '' && this.state.userFirstName !== '' && this.state.userTcks !== '' ){
+					e.preventDefault();
+					let dbCon = this.props.db.database();
+					dbCon.ref('/events').child(this.props.chooseEvent.key).update({
+						nbr:ticketLeft
+					})
+					dbCon.ref('/reserved').push({
+						name: this.state.userName,
+						mail : this.state.userMail,
+						firtName : this.state.userFirstName,
+						nbr : this.state.userTcks,
+						event: this.props.chooseEvent,
+					});
+					this.setState({
+						userName:'',
+						userMail:'',
+						userFirstName:'',
+						userTcks:''
+					});
+					window.location.reload()
+				}
+				else{
+					alert("Nous n'avons pas assez de Billets en stock ou vous n'avez pas renseigné toutes les informations requise")
+				}
 	}
 	
 	render() { 
-
+		console.log(this.props.chooseEvent)
 		return (
 			<form>
 				<div class="field">

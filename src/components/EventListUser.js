@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Event from './Event'
 import _ from 'lodash';
-import BuyTicket from './BuyTicket'
+import BuyTicket from './BuyTicket';
+import firebase from 'firebase'
 
 export default class EventListUser extends Component {
 	componentDidMount(){
@@ -12,7 +13,8 @@ export default class EventListUser extends Component {
   	}
 	state={
 		events:[],
-		modalDisplay:'none'
+		modalDisplay:'none',
+		chooseEvent:''
 	}
 	 getData(values ){
 	    let eventsVal = values;
@@ -28,13 +30,16 @@ export default class EventListUser extends Component {
         	events: events
       	});
   	}
-  	showModal =()=>{
+  	showModal =(currentEvent)=>{
 		this.state.modalDisplay === 'none'?
   		this.setState({
-				modalDisplay:'block'
+				modalDisplay:'flex',
+				chooseEvent:currentEvent
 			}):
 			this.setState({
-				modalDisplay:'none'
+				modalDisplay:'none',
+				chooseEvent : ''
+
 			})
   	}
 	render() {
@@ -61,28 +66,25 @@ export default class EventListUser extends Component {
 				  </div>
 				   	<footer className="card-footer">				   
 				    <a href="#" className="card-footer-item">
-				    	<div onClick={this.showModal}>Reserver</div>
+				    	<div onClick={()=>this.showModal(event)}>Reserver</div>
 				    </a>				    
 				    <a href="#" className="card-footer-item">Plus d'infos</a>
 				  	</footer>
-				  	<div className="modal" 
-		        	style={{display:this.state.modalDisplay , backgroundColor:'black'}} >	
-		        		<div className="columns" style={{overflow:'scrollbar',height: '100%',display: 'flex', alignItems:'center'}} >
-				          	<div className="column is-3"></div>
-				          	<div className="column is-6"  
-				          	style={{backgroundColor:'white'}}>
-				            	<BuyTicket closeModal={this.showModal}
-				            	currentEvent={event.key}
-				            	ticketLeft={event.nbr} />	
-				          	</div>
-			        	</div>
-		        	</div>
 				</div>
 		      )
 		    });
 		return (
 			<div>
 				{messageNodes}
+                <div
+	        	className="modal" 
+	        	style={{display:this.state.modalDisplay , backgroundColor:'black', justifyContent:'center', alignItems:'center'}} >	
+	        		<div className="column is-8" style={{overflow:'scrollbar'}} >
+			          	<div style={{backgroundColor:'white', padding:'50px'}}>
+			            	<BuyTicket db={firebase} closeModal={this.showModal} chooseEvent={this.state.chooseEvent} />			            	     			
+			          	</div>
+		        	</div>
+	        	</div>
 			</div>
 		);
 	}
